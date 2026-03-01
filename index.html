@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Vision — Pricing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0fc8e4;
+      --primary-dark: #0bb3cc;
+      --accent: #e13292;
+      --bg: #eef0f5;
+      --bg-dark: #0d0d14;
+      --card: #ffffff;
+      --card-dark: #16162a;
+      --text: #0a0e1a;
+      --text-muted: #6b7280;
+      --text-light: #f8fafc;
+      --border: #e5e7eb;
+      --success: #22c55e;
+      --gradient: linear-gradient(135deg, #e13292, #0fc8e4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      background: var(--bg-dark);
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gradient);
+    }
+    .logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: var(--text-light);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-light); }
+    .nav-cta {
+      background: var(--gradient) !important;
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-family: 'Syne', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; }
+
+    /* ---- HERO ---- */
+    .hero {
+      text-align: center;
+      padding: 72px 24px 16px;
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-muted);
+      font-size: 17px;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ---- BILLING TOGGLE ---- */
+    .billing-toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 32px 0 40px;
+    }
+    .billing-toggle span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .billing-toggle span.active { color: var(--text); font-weight: 600; }
+    .toggle-track {
+      width: 44px;
+      height: 24px;
+      background: var(--primary);
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-knob {
+      width: 18px;
+      height: 18px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s;
+    }
+    .toggle-track.annual .toggle-knob { transform: translateX(20px); }
+    .save-badge {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--gradient);
+      color: white;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ---- TIERS ---- */
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .tier-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .tier-card:hover {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+    .tier-card.featured {
+      border: 2px solid var(--primary);
+      box-shadow: 0 4px 14px rgba(15, 200, 228, 0.15);
+    }
+    .tier-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 16px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tier-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .tier-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .tier-price {
+      margin-bottom: 4px;
+    }
+    .tier-price .amount {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 42px;
+      letter-spacing: -1px;
+    }
+    .tier-price .period {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .tier-price-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .tier-free .amount {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tier-cta {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      margin-bottom: 28px;
+      text-decoration: none;
+    }
+    .tier-cta-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .tier-cta-primary:hover { background: var(--primary-dark); }
+    .tier-cta-gradient {
+      background: var(--gradient);
+      color: white;
+    }
+    .tier-cta-gradient:hover { opacity: 0.9; }
+    .tier-cta-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .tier-cta-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    .tier-features {
+      list-style: none;
+      flex: 1;
+    }
+    .tier-features li {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      color: var(--text);
+      padding: 7px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.4;
+    }
+    .tier-features li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      background: var(--primary);
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / contain no-repeat;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+    .feature-highlight {
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    /* ---- TOKEN SECTION ---- */
+    .tokens-section {
+      max-width: 1200px;
+      margin: 64px auto 0;
+      padding: 0 24px;
+    }
+    .tokens-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .tokens-header h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    .tokens-header p {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    .tokens-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .tokens-how {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+    }
+    .tokens-how h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+
+    .token-action {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+    }
+    .token-action:last-child { border-bottom: none; }
+    .token-cost {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--primary-dark);
+      background: rgba(15, 200, 228, 0.08);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .tokens-topup {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+    }
+    .tokens-topup h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .tokens-topup > p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .topup-cards {
+      display: flex;
+      gap: 12px;
+    }
+    .topup-card {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .topup-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 2px 12px rgba(15, 200, 228, 0.1);
+    }
+    .topup-card .pack-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .topup-card .pack-tokens {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 28px;
+      margin-bottom: 2px;
+    }
+    .topup-card .pack-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .topup-card .pack-price {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .topup-card .pack-unit {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .topup-card.best-value { border-color: var(--primary); background: rgba(15, 200, 228, 0.03); }
+    .topup-card.best-value .pack-name { color: var(--primary-dark); }
+
+    /* ---- ALWAYS FREE ---- */
+    .always-free {
+      max-width: 1200px;
+      margin: 48px auto 0;
+      padding: 0 24px;
+    }
+    .always-free-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .always-free-card .af-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(15, 200, 228, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .always-free-card .af-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--primary);
+    }
+    .af-content h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .af-content p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .af-items {
+      display: flex;
+      gap: 32px;
+      flex-shrink: 0;
+    }
+    .af-item {
+      text-align: center;
+    }
+    .af-item .af-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .af-item .af-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--success);
+    }
+
+    /* ---- ENTERPRISE ---- */
+    .enterprise {
+      max-width: 1200px;
+      margin: 48px auto 0;
+      padding: 0 24px;
+    }
+    .enterprise-card {
+      background: var(--bg-dark);
+      border-radius: 12px;
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .enterprise-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 28px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+    .enterprise-card p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: #9ca3af;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .enterprise-cta {
+      flex-shrink: 0;
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 999px;
+      background: var(--gradient);
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .enterprise-cta:hover { opacity: 0.9; }
+
+    /* ---- FAQ ---- */
+    .faq {
+      max-width: 720px;
+      margin: 64px auto 0;
+      padding: 0 24px 80px;
+    }
+    .faq h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+    }
+    .faq-q {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-q::after {
+      content: '+';
+      font-size: 20px;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-q::after {
+      content: '-';
+    }
+    .faq-a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s, padding 0.3s;
+    }
+    .faq-item.open .faq-a {
+      max-height: 200px;
+      padding-top: 12px;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 1024px) {
+      .tiers { grid-template-columns: repeat(2, 1fr); }
+      .enterprise-card { flex-direction: column; text-align: center; }
+      .enterprise-card p { max-width: 100%; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 16px; }
+      .tiers { grid-template-columns: 1fr; max-width: 420px; }
+      .tokens-grid { grid-template-columns: 1fr; }
+      .topup-cards { flex-direction: column; }
+      .always-free-card { flex-direction: column; text-align: center; }
+      .af-items { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <div class="logo-icon"></div>
+      <span class="logo-text">Liquid Vision</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Platform</a>
+      <a href="#">LV Labs</a>
+      <a href="#" style="color:#f8fafc;">Pricing</a>
+      <a href="#">Resources</a>
+      <a href="#" class="nav-cta">Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Intelligence that pays for itself</h1>
+    <p>Every plan includes the full platform. No feature gates, no hidden limits on what you can see. LV Tokens let you go deeper when you're ready.</p>
+  </div>
+
+  <!-- BILLING TOGGLE -->
+  <div class="billing-toggle">
+    <span class="active" id="monthly-label">Monthly</span>
+    <div class="toggle-track" id="billing-toggle" onclick="toggleBilling()">
+      <div class="toggle-knob"></div>
+    </div>
+    <span id="annual-label">Annual</span>
+    <span class="save-badge">Save 17%</span>
+  </div>
+
+  <!-- TIER CARDS -->
+  <div class="tiers">
+
+    <!-- FREE -->
+    <div class="tier-card">
+      <div class="tier-name">Free</div>
+      <div class="tier-desc">See what your data can tell you. No credit card required.</div>
+      <div class="tier-price tier-free">
+        <span class="amount">$0</span>
+        <span class="period">/month</span>
+      </div>
+      <div class="tier-price-note">Free forever</div>
+      <a href="#" class="tier-cta tier-cta-outline">Start Free</a>
+      <ul class="tier-features">
+        <li><span class="feature-highlight">50 accounts</span> tracked</li>
+        <li>Full dashboards, charts, and exports</li>
+        <li>Unlimited basic queries</li>
+        <li>13 LV Tokens/month for AI intelligence</li>
+        <li>1 monthly AI brief</li>
+        <li>Access to all LV Labs extensions</li>
+      </ul>
+    </div>
+
+    <!-- STARTER -->
+    <div class="tier-card">
+      <div class="tier-name">Starter</div>
+      <div class="tier-desc">For brands getting serious about data-driven distribution.</div>
+      <div class="tier-price">
+        <span class="amount" data-monthly="$199" data-annual="$166">$199</span>
+        <span class="period">/month</span>
+      </div>
+      <div class="tier-price-note" data-monthly="Billed monthly" data-annual="$1,990 billed annually">Billed monthly</div>
+      <a href="#" class="tier-cta tier-cta-primary">Start Free Trial</a>
+      <ul class="tier-features">
+        <li><span class="feature-highlight">150 accounts</span> tracked</li>
+        <li>Everything in Free</li>
+        <li><span class="feature-highlight">150 LV Tokens</span>/month</li>
+        <li>AI reports, briefs, and playbooks</li>
+        <li>Prospect discovery and competitive intel</li>
+        <li>Token top-ups available anytime</li>
+        <li>5 team members</li>
+      </ul>
+    </div>
+
+    <!-- PRO -->
+    <div class="tier-card featured">
+      <div class="tier-name">Pro</div>
+      <div class="tier-desc">For growing brands scaling into new markets.</div>
+      <div class="tier-price">
+        <span class="amount" data-monthly="$599" data-annual="$499">$599</span>
+        <span class="period">/month</span>
+      </div>
+      <div class="tier-price-note" data-monthly="Billed monthly" data-annual="$5,990 billed annually">Billed monthly</div>
+      <a href="#" class="tier-cta tier-cta-gradient">Start Free Trial</a>
+      <ul class="tier-features">
+        <li><span class="feature-highlight">500 accounts</span> tracked</li>
+        <li>Everything in Starter</li>
+        <li><span class="feature-highlight">600 LV Tokens</span>/month</li>
+        <li>4x the AI intelligence budget</li>
+        <li>Demographic and territory intelligence</li>
+        <li>Token top-ups available anytime</li>
+        <li>10 team members</li>
+      </ul>
+    </div>
+
+    <!-- SCALE -->
+    <div class="tier-card">
+      <div class="tier-name">Scale</div>
+      <div class="tier-desc">For established brands with national distribution.</div>
+      <div class="tier-price">
+        <span class="amount" data-monthly="$1,499" data-annual="$1,249">$1,499</span>
+        <span class="period">/month</span>
+      </div>
+      <div class="tier-price-note" data-monthly="Billed monthly" data-annual="$14,990 billed annually">Billed monthly</div>
+      <a href="#" class="tier-cta tier-cta-primary">Contact Sales</a>
+      <ul class="tier-features">
+        <li><span class="feature-highlight">2,000 accounts</span> tracked</li>
+        <li>Everything in Pro</li>
+        <li><span class="feature-highlight">2,000 LV Tokens</span>/month</li>
+        <li>Dedicated success manager</li>
+        <li>Priority support</li>
+        <li>Token top-ups available anytime</li>
+        <li>25 team members</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ALWAYS FREE -->
+  <div class="always-free">
+    <div class="always-free-card">
+      <div class="af-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div class="af-content">
+        <h3>Always Free, No Tokens Needed</h3>
+        <p>You never pay to look at your own data. Dashboards, charts, exports, filters, basic queries, and data import are free on every plan. LV Tokens are only used when you ask our AI to work for you.</p>
+      </div>
+      <div class="af-items">
+        <div class="af-item">
+          <div class="af-label">Data Import</div>
+          <div class="af-value">Free</div>
+        </div>
+        <div class="af-item">
+          <div class="af-label">Dashboards</div>
+          <div class="af-value">Free</div>
+        </div>
+        <div class="af-item">
+          <div class="af-label">Basic Queries</div>
+          <div class="af-value">Free</div>
+        </div>
+        <div class="af-item">
+          <div class="af-label">Exports</div>
+          <div class="af-value">Free</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOKEN EXPLAINER -->
+  <div class="tokens-section">
+    <div class="tokens-header">
+      <h2>How LV Tokens Work</h2>
+      <p>Tokens power the AI intelligence layer. Simple actions cost less. Deep analysis costs more. You're always in control.</p>
+    </div>
+    <div class="tokens-grid">
+      <div class="tokens-how">
+        <h3>What Tokens Cost</h3>
+        <div class="token-action">
+          <span>Ask a question</span>
+          <span class="token-cost">1 token</span>
+        </div>
+        <div class="token-action">
+          <span>AI summary or narration</span>
+          <span class="token-cost">2 tokens</span>
+        </div>
+        <div class="token-action">
+          <span>AI report or brief</span>
+          <span class="token-cost">3-5 tokens</span>
+        </div>
+        <div class="token-action">
+          <span>Demographic enrichment</span>
+          <span class="token-cost">5 tokens</span>
+        </div>
+        <div class="token-action">
+          <span>Competitive deep dive</span>
+          <span class="token-cost">8 tokens</span>
+        </div>
+        <div class="token-action">
+          <span>Prospect discovery search</span>
+          <span class="token-cost">10 tokens</span>
+        </div>
+      </div>
+      <div class="tokens-topup">
+        <h3>Need More? Top Up Anytime</h3>
+        <p>Run out mid-month? Buy more tokens instantly, right inside the platform. No waiting for renewal.</p>
+        <div class="topup-cards">
+          <div class="topup-card">
+            <div class="pack-name">Boost</div>
+            <div class="pack-tokens">100</div>
+            <div class="pack-label">tokens</div>
+            <div class="pack-price">$29</div>
+            <div class="pack-unit">$0.29 / token</div>
+          </div>
+          <div class="topup-card">
+            <div class="pack-name">Power</div>
+            <div class="pack-tokens">500</div>
+            <div class="pack-label">tokens</div>
+            <div class="pack-price">$119</div>
+            <div class="pack-unit">$0.24 / token</div>
+          </div>
+          <div class="topup-card best-value">
+            <div class="pack-name">Best Value</div>
+            <div class="pack-tokens">1,500</div>
+            <div class="pack-label">tokens</div>
+            <div class="pack-price">$299</div>
+            <div class="pack-unit">$0.20 / token</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENTERPRISE -->
+  <div class="enterprise">
+    <div class="enterprise-card">
+      <div>
+        <h3>Distributors and Holding Companies</h3>
+        <p>Managing hundreds of brands across territories? Liquid Vision Enterprise gives you aggregate portfolio intelligence, cross-brand analytics, and custom integrations. Built for how distributors actually work.</p>
+      </div>
+      <a href="#" class="enterprise-cta">Talk to Us</a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq">
+    <h2>Common Questions</h2>
+
+    <div class="faq-item open">
+      <div class="faq-q" onclick="toggleFaq(this)">What happens when I run out of LV Tokens?</div>
+      <div class="faq-a">Your dashboards, data, and basic queries keep working. Only AI-powered features pause until your tokens refresh next month or you grab a top-up pack. You're never locked out of your data.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do unused tokens roll over?</div>
+      <div class="faq-a">Monthly tokens roll over for one billing cycle, capped at 2x your plan's monthly amount. Top-up tokens are valid for 60 days from purchase.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I access every feature on every plan?</div>
+      <div class="faq-a">Yes. Every plan, including Free, has access to every capability: reports, competitive intelligence, prospect discovery, playbooks, all LV Labs extensions. Plans differ by how many accounts you track and how many tokens you get each month.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is my data import really free?</div>
+      <div class="faq-a">Always. Upload as many distributor files as you need. We handle the normalization. Your data is what makes the platform valuable for you, so we'll never charge for it.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What if I need more than 2,000 accounts?</div>
+      <div class="faq-a">Our Enterprise plan is fully custom, built for distributors and large suppliers managing national portfolios. Reach out and we'll scope it together.</div>
+    </div>
+
+  </div>
+
+  <script>
+    let isAnnual = false;
+
+    function toggleBilling() {
+      isAnnual = !isAnnual;
+      const track = document.getElementById('billing-toggle');
+      const monthlyLabel = document.getElementById('monthly-label');
+      const annualLabel = document.getElementById('annual-label');
+
+      track.classList.toggle('annual', isAnnual);
+      monthlyLabel.classList.toggle('active', !isAnnual);
+      annualLabel.classList.toggle('active', isAnnual);
+
+      document.querySelectorAll('.tier-price .amount[data-monthly]').forEach(el => {
+        el.textContent = isAnnual ? el.dataset.annual : el.dataset.monthly;
+      });
+      document.querySelectorAll('.tier-price-note[data-monthly]').forEach(el => {
+        el.textContent = isAnnual ? el.dataset.annual : el.dataset.monthly;
+      });
+    }
+
+    function toggleFaq(el) {
+      el.parentElement.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
