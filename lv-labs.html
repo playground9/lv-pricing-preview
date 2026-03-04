@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Vision — LV Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0fc8e4;
+      --primary-dark: #0bb3cc;
+      --accent: #e13292;
+      --bg: #eef0f5;
+      --bg-dark: #0d0d14;
+      --card: #ffffff;
+      --text: #0a0e1a;
+      --text-muted: #6b7280;
+      --text-light: #f8fafc;
+      --border: #e5e7eb;
+      --success: #22c55e;
+      --gradient: linear-gradient(135deg, #e13292, #0fc8e4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      background: var(--bg-dark);
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gradient);
+    }
+    .logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: var(--text-light);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-light); }
+    .nav-cta {
+      background: var(--gradient) !important;
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-family: 'Syne', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; }
+
+    /* ---- HERO ---- */
+    .hero {
+      text-align: center;
+      padding: 72px 24px 48px;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--gradient);
+      color: white;
+      padding: 4px 14px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-muted);
+      font-size: 17px;
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ---- HOW IT WORKS ---- */
+    .how-it-works {
+      max-width: 800px;
+      margin: 0 auto 56px;
+      padding: 0 24px;
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+    }
+    .hiw-step {
+      text-align: center;
+      max-width: 200px;
+    }
+    .hiw-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(15, 200, 228, 0.1);
+      color: var(--primary-dark);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .hiw-step h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 4px;
+    }
+    .hiw-step p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ---- SECTION HEADERS ---- */
+    .section-header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 24px;
+    }
+    .section-header h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 1.6rem;
+      letter-spacing: 0.3px;
+    }
+    .section-header p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ---- EXTENSION GRID ---- */
+    .extensions-grid {
+      max-width: 1100px;
+      margin: 0 auto 64px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .ext-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+    }
+    .ext-card:hover {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+    .ext-card.coming-soon {
+      opacity: 0.7;
+    }
+    .ext-card.coming-soon:hover {
+      opacity: 0.85;
+    }
+
+    .ext-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .ext-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .ext-badge {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .badge-available {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--success);
+    }
+    .badge-coming {
+      background: rgba(107, 114, 128, 0.1);
+      color: var(--text-muted);
+    }
+    .badge-beta {
+      background: rgba(225, 50, 146, 0.1);
+      color: var(--accent);
+    }
+
+    .ext-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      letter-spacing: 0.3px;
+      margin-bottom: 6px;
+    }
+    .ext-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .ext-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid #f3f4f6;
+    }
+    .ext-token-cost {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ext-token-cost .cost-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(15, 200, 228, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ext-token-cost .cost-icon svg {
+      width: 12px;
+      height: 12px;
+      color: var(--primary-dark);
+    }
+    .ext-token-cost span {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--primary-dark);
+    }
+    .ext-category {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    /* ---- BUILD YOUR OWN CTA ---- */
+    .custom-cta {
+      max-width: 1100px;
+      margin: 0 auto 64px;
+      padding: 0 24px;
+    }
+    .custom-cta-card {
+      background: var(--bg-dark);
+      border-radius: 12px;
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .custom-cta-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 28px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+    .custom-cta-card p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: #9ca3af;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .custom-cta-btn {
+      flex-shrink: 0;
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 999px;
+      background: var(--gradient);
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .custom-cta-btn:hover { opacity: 0.9; }
+
+    /* ---- TOKEN REMINDER ---- */
+    .token-reminder {
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+    .token-reminder-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .tr-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(15, 200, 228, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tr-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--primary);
+    }
+    .tr-content {
+      flex: 1;
+    }
+    .tr-content h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .tr-content p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .tr-link {
+      flex-shrink: 0;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--primary-dark);
+      text-decoration: none;
+      padding: 10px 24px;
+      border: 1px solid var(--primary);
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+    .tr-link:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 1024px) {
+      .extensions-grid { grid-template-columns: repeat(2, 1fr); }
+      .custom-cta-card { flex-direction: column; text-align: center; }
+      .custom-cta-card p { max-width: 100%; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 16px; }
+      .extensions-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .how-it-works { flex-direction: column; align-items: center; gap: 24px; }
+      .token-reminder-card { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <div class="logo-icon"></div>
+      <span class="logo-text">Liquid Vision</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Platform</a>
+      <a href="#" style="color:#f8fafc;">LV Labs</a>
+      <a href="v3.html">Pricing</a>
+      <a href="#">Resources</a>
+      <a href="#" class="nav-cta">Start Free Trial</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">LV Labs</div>
+    <h1>Extensions that work while you don't</h1>
+    <p>Every extension is included on every plan. They run on your LV Tokens. Use what you need, skip what you don't. No extra subscriptions, no add-on fees.</p>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-it-works">
+    <div class="hiw-step">
+      <div class="hiw-num">1</div>
+      <h4>Pick an Extension</h4>
+      <p>Browse available extensions below. Each one solves a specific problem.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">2</div>
+      <h4>Run It</h4>
+      <p>Click to run. Token cost is shown upfront. No surprises.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">3</div>
+      <h4>Get Results</h4>
+      <p>Results land in your dashboard. Use them in reports, pitches, or planning.</p>
+    </div>
+  </div>
+
+  <!-- AVAILABLE NOW -->
+  <div class="section-header">
+    <h2>Available Now</h2>
+    <p>These extensions are live and ready to use in your account.</p>
+  </div>
+
+  <div class="extensions-grid">
+
+    <!-- Prospect Discovery -->
+    <div class="ext-card">
+      <div class="ext-top">
+        <div class="ext-icon" style="background:rgba(15,200,228,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0bb3cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <span class="ext-badge badge-available">Available</span>
+      </div>
+      <div class="ext-name">Prospect Discovery</div>
+      <div class="ext-desc">Find new accounts that match your best-performing locations. Search by region, venue type, or brand fit. Returns scored leads with contact info and placement likelihood.</div>
+      <div class="ext-footer">
+        <div class="ext-token-cost">
+          <div class="cost-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg></div>
+          <span>2 tokens per search</span>
+        </div>
+        <span class="ext-category">Growth</span>
+      </div>
+    </div>
+
+    <!-- Competitive Deep Dive -->
+    <div class="ext-card">
+      <div class="ext-top">
+        <div class="ext-icon" style="background:rgba(225,50,146,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e13292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        </div>
+        <span class="ext-badge badge-available">Available</span>
+      </div>
+      <div class="ext-name">Competitive Deep Dive</div>
+      <div class="ext-desc">Full competitive landscape analysis for any brand or category. Market positioning, pricing intelligence, distribution overlap, and share-of-shelf estimates.</div>
+      <div class="ext-footer">
+        <div class="ext-token-cost">
+          <div class="cost-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg></div>
+          <span>3 tokens per report</span>
+        </div>
+        <span class="ext-category">Intelligence</span>
+      </div>
+    </div>
+
+    <!-- Social Content Fetch -->
+    <div class="ext-card">
+      <div class="ext-top">
+        <div class="ext-icon" style="background:rgba(34,197,94,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <span class="ext-badge badge-available">Available</span>
+      </div>
+      <div class="ext-name">Social Content Curator</div>
+      <div class="ext-desc">Pull the most relevant social content about your brand, competitors, and category. Curated and scored for relevance. Great for sales decks and brand reviews.</div>
+      <div class="ext-footer">
+        <div class="ext-token-cost">
+          <div class="cost-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg></div>
+          <span>5 tokens per fetch</span>
+        </div>
+        <span class="ext-category">Content</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COMING SOON -->
+  <div class="section-header">
+    <h2>Coming Soon</h2>
+    <p>In development. These will be available in upcoming releases.</p>
+  </div>
+
+  <div class="extensions-grid">
+
+    <!-- Lead Builder -->
+    <div class="ext-card coming-soon">
+      <div class="ext-top">
+        <div class="ext-icon" style="background:rgba(15,200,228,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0bb3cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span class="ext-badge badge-coming">Coming Soon</span>
+      </div>
+      <div class="ext-name">Lead Builder</div>
+      <div class="ext-desc">Build targeted account lists for new market entry. Combines demographic data, venue density, and competitive gaps to score and rank opportunities by territory.</div>
+      <div class="ext-footer">
+        <div class="ext-token-cost">
+          <div class="cost-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg></div>
+          <span>3 tokens per list</span>
+        </div>
+        <span class="ext-category">Growth</span>
+      </div>
+    </div>
+
+    <!-- Forecast Engine -->
+    <div class="ext-card coming-soon">
+      <div class="ext-top">
+        <div class="ext-icon" style="background:rgba(225,50,146,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e13292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <span class="ext-badge badge-coming">Coming Soon</span>
+      </div>
+      <div class="ext-name">Forecast Engine</div>
+      <div class="ext-desc">Demand forecasting from your sales data. Predicts volume by account, territory, and season. Helps you plan inventory, allocate reps, and set targets with confidence.</div>
+      <div class="ext-footer">
+        <div class="ext-token-cost">
+          <div class="cost-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg></div>
+          <span>3-5 tokens per forecast</span>
+        </div>
+        <span class="ext-category">Planning</span>
+      </div>
+    </div>
+
+    <!-- Depletion Allowance AI -->
+    <div class="ext-card coming-soon">
+      <div class="ext-top">
+        <div class="ext-icon" style="background:rgba(251,191,36,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <span class="ext-badge badge-coming">Coming Soon</span>
+      </div>
+      <div class="ext-name">Depletion Allowance AI</div>
+      <div class="ext-desc">Analyze distributor depletion patterns and allowance programs. Identify which accounts are under-depleting, where allowances are being wasted, and where to reallocate.</div>
+      <div class="ext-footer">
+        <div class="ext-token-cost">
+          <div class="cost-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg></div>
+          <span>2-3 tokens per analysis</span>
+        </div>
+        <span class="ext-category">Finance</span>
+      </div>
+    </div>
+
+    <!-- Geo Media Planner -->
+    <div class="ext-card coming-soon">
+      <div class="ext-top">
+        <div class="ext-icon" style="background:rgba(99,102,241,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <span class="ext-badge badge-coming">Coming Soon</span>
+      </div>
+      <div class="ext-name">Geo Media Planner</div>
+      <div class="ext-desc">Media spend recommendations by territory. Uses your sales data and account density to recommend where to invest in digital, OOH, and event sponsorships for maximum impact.</div>
+      <div class="ext-footer">
+        <div class="ext-token-cost">
+          <div class="cost-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg></div>
+          <span>3-5 tokens per plan</span>
+        </div>
+        <span class="ext-category">Marketing</span>
+      </div>
+    </div>
+
+    <!-- World Cup Tracker -->
+    <div class="ext-card coming-soon">
+      <div class="ext-top">
+        <div class="ext-icon" style="background:rgba(34,197,94,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <span class="ext-badge badge-coming">Coming Soon</span>
+      </div>
+      <div class="ext-name">World Cup Tracker</div>
+      <div class="ext-desc">Event-driven opportunity alerts tied to FIFA World Cup 2026. Track venue watch parties, match schedules near your accounts, and consumption spikes by market. Time-limited extension.</div>
+      <div class="ext-footer">
+        <div class="ext-token-cost">
+          <div class="cost-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg></div>
+          <span>1-2 tokens per scan</span>
+        </div>
+        <span class="ext-category">Events</span>
+      </div>
+    </div>
+
+    <!-- Menu Intelligence -->
+    <div class="ext-card coming-soon">
+      <div class="ext-top">
+        <div class="ext-icon" style="background:rgba(225,50,146,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e13292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <span class="ext-badge badge-coming">Coming Soon</span>
+      </div>
+      <div class="ext-name">Menu Intelligence</div>
+      <div class="ext-desc">Scan venue menus in any city to see who's pouring what. Track competitive placement, pricing, and category trends. Identify gaps where your brand should be listed.</div>
+      <div class="ext-footer">
+        <div class="ext-token-cost">
+          <div class="cost-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg></div>
+          <span>5-15 tokens per city scan</span>
+        </div>
+        <span class="ext-category">Intelligence</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BUILD YOUR OWN -->
+  <div class="custom-cta">
+    <div class="custom-cta-card">
+      <div>
+        <h3>Need Something Custom?</h3>
+        <p>Every brand has unique challenges. If you need an extension built specifically for your workflow, our team can build it. Custom extensions run on the same token system and live right in your dashboard.</p>
+      </div>
+      <a href="#" class="custom-cta-btn">Let's Talk</a>
+    </div>
+  </div>
+
+  <!-- TOKEN REMINDER -->
+  <div class="token-reminder">
+    <div class="token-reminder-card">
+      <div class="tr-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8M8 14h8"/></svg>
+      </div>
+      <div class="tr-content">
+        <h3>All Extensions Run on LV Tokens</h3>
+        <p>No extra subscriptions. No add-on fees. Every extension is included on every plan. You just spend tokens when you use them. Need more tokens? Top up anytime or upgrade your plan.</p>
+      </div>
+      <a href="v3.html" class="tr-link">View Plans</a>
+    </div>
+  </div>
+
+</body>
+</html>
